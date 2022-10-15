@@ -16,6 +16,7 @@ class TrafficLightViewController: UIViewController {
         static let redLightFlashTimeout: TimeInterval = 1
     }
 
+    @IBOutlet private weak var trafficLightView: UIView!
     @IBOutlet private weak var redLamp: TrafficLightLampView! { didSet { redLamp.type = .red }}
     @IBOutlet private weak var yellowLamp: TrafficLightLampView! { didSet { yellowLamp.type = .yellow }}
     @IBOutlet private weak var greenLamp: TrafficLightLampView! { didSet { greenLamp.type = .green }}
@@ -27,6 +28,11 @@ class TrafficLightViewController: UIViewController {
         resetViewColors()
         stateMachine = TrafficLightStateMachine(stateChangedCallback: handleStateChange(newState:))
         stateMachine.start()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        trafficLightView.layer.cornerRadius = trafficLightView.frame.width / 4
     }
 
     func resetViewColors() {

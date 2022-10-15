@@ -66,6 +66,7 @@
                     <connections>
                         <outlet property="greenLamp" destination="nFt-IA-awn" id="wwM-cG-Jhi"/>
                         <outlet property="redLamp" destination="Tjc-PV-O4d" id="V68-w9-y1g"/>
+                        <outlet property="trafficLightView" destination="vZG-Db-6XH" id="JGb-q1-JBL"/>
                         <outlet property="yellowLamp" destination="XBD-cC-ngM" id="8P6-Kt-aKG"/>
                     </connections>
                 </viewController>
