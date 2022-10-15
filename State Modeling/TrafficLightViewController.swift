@@ -10,8 +10,9 @@ import UIKit
 class TrafficLightViewController: UIViewController {
     struct Constants {
         static let redLightTimeout: TimeInterval = 2
-        static let yellowLightTimeout: TimeInterval = 2
+        static let redAndYellowLightTimeout: TimeInterval = 1
         static let greenLightTimeout: TimeInterval = 3
+        static let yellowLightTimeout: TimeInterval = 1
         static let redLightFlashTimeout: TimeInterval = 1
     }
 
@@ -40,12 +41,16 @@ class TrafficLightViewController: UIViewController {
         case .red:
             redLamp.turnOn()
             Timer.scheduledTimer(withTimeInterval: Constants.redLightTimeout, repeats: false, block: { _ in self.stateMachine.redTimerElapsed()})
-        case .yellow:
+        case .redAndYellow:
+            redLamp.turnOn()
             yellowLamp.turnOn()
-            Timer.scheduledTimer(withTimeInterval: Constants.yellowLightTimeout, repeats: false, block: { _ in self.stateMachine.yellowTimerElapsed()})
+            Timer.scheduledTimer(withTimeInterval: Constants.redAndYellowLightTimeout, repeats: false, block: { _ in self.stateMachine.redAndYelloyTimerElapsed()})
         case .green:
             greenLamp.turnOn()
             Timer.scheduledTimer(withTimeInterval: Constants.greenLightTimeout, repeats: false, block: { _ in self.stateMachine.greenTimerElapsed()})
+        case .yellow:
+            yellowLamp.turnOn()
+            Timer.scheduledTimer(withTimeInterval: Constants.yellowLightTimeout, repeats: false, block: { _ in self.stateMachine.yellowTimerElapsed()})
         case .flashingRed:
             flashRedLight()
         }

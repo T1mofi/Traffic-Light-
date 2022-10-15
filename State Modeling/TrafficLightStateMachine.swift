@@ -11,8 +11,9 @@ import UIKit
 class TrafficLightStateMachine {
     enum TrafficLightState {
         case red
-        case yellow
+        case redAndYellow
         case green
+        case yellow
         case flashingRed
     }
 
@@ -34,11 +35,31 @@ class TrafficLightStateMachine {
         stateChangedCallback(state)
     }
 
+    func redTimerElapsed() {
+        switch state {
+        case .red:
+            state = .redAndYellow
+        case .redAndYellow, .yellow, .green, .flashingRed:
+            print("Error: Invalid state transition")
+            state = .flashingRed
+        }
+    }
+
+    func redAndYelloyTimerElapsed() {
+        switch state {
+        case .redAndYellow:
+            state = .green
+        case .red, .yellow, .green, .flashingRed:
+            print("Error: Invalid state transition")
+            state = .flashingRed
+        }
+    }
+
     func greenTimerElapsed() {
         switch state {
         case .green:
             state = .yellow
-        case .yellow,.red, .flashingRed:
+        case .red, .redAndYellow, .yellow, .flashingRed:
             print("Error: Invalid state transition")
             state = .flashingRed
         }
@@ -48,19 +69,10 @@ class TrafficLightStateMachine {
         switch state {
         case .yellow:
             state = .red
-        case .green,.red, .flashingRed:
+        case .red, .redAndYellow, .green, .flashingRed:
             print("Error: Invalid state transition")
             state = .flashingRed
         }
     }
 
-    func redTimerElapsed() {
-        switch state {
-        case .red:
-            state = .green
-        case .green,.yellow, .flashingRed:
-            print("Error: Invalid state transition")
-            state = .flashingRed
-        }
-    }
 }
