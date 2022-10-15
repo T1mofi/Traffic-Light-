@@ -75,13 +75,13 @@ class ViewController: UIViewController {
         resetViewColors()
         switch newState {
         case .red:
-            turnLamp(.red)
+            turnOnLamp(.red)
             Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.redTimerElapsed()})
         case .yellow:
-            turnLamp(.yellow)
+            turnOnLamp(.yellow)
             Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.yellowTimerElapsed()})
         case .green:
-            turnLamp(.green)
+            turnOnLamp(.green)
             Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.greenTimerElapsed()})
         case .flashingRed:
             flashRedLight()
@@ -92,14 +92,14 @@ class ViewController: UIViewController {
 private extension ViewController {
     func flashRedLight() {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            self.turnLamp(.red)
+            self.turnOnLamp(.red)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.turnOffLamp(.red)
             }
         })
     }
 
-    func turnLamp(_ lamp: TrafficLightLamp) {
+    func turnOnLamp(_ lamp: TrafficLightLamp) {
         let lampView = viewForLamp(lamp)
         lampView.backgroundColor = lamp.activeColor
     }
