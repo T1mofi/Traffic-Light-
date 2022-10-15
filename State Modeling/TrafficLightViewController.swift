@@ -16,6 +16,7 @@ class TrafficLightViewController: UIViewController {
         static let redLightFlashTimeout: TimeInterval = 1
     }
 
+    // TODO: - Incapsulate trafficLightView
     @IBOutlet private weak var trafficLightView: UIView!
     @IBOutlet private weak var redLamp: TrafficLightLampView! { didSet { redLamp.type = .red }}
     @IBOutlet private weak var yellowLamp: TrafficLightLampView! { didSet { yellowLamp.type = .yellow }}

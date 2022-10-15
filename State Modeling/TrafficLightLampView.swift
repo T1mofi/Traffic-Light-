@@ -46,6 +46,7 @@ class TrafficLightLampView: UIView {
     }
     var colorView: UIView
 
+    // TODO: - Review initialization logic
     override init(frame: CGRect) {
         self.colorView = UIView()
         super.init(frame: frame)
@@ -69,7 +70,7 @@ class TrafficLightLampView: UIView {
         self.layer.cornerRadius = self.frame.height / 2
         colorView.layer.cornerRadius = self.layer.cornerRadius
         self.layer.borderWidth = 2.0
-        self.layer.borderColor = UIColor.systemGray2.cgColor
+        self.layer.borderColor = UIColor.systemGray.cgColor
     }
 
     func turnOn() {
