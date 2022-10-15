@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TrafficLightViewController.swift
 //  State Modeling
 //
 //  Created by Tsimafei Sikorski on 15/10/2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TrafficLightViewController: UIViewController {
     struct Constants {
         static let redLightTimeout: TimeInterval = 2
         static let yellowLightTimeout: TimeInterval = 2
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     }
 }
 
-private extension ViewController {
+private extension TrafficLightViewController {
     func flashRedLight() {
         Timer.scheduledTimer(withTimeInterval: Constants.redLightFlashTimeout, repeats: true, block: { _ in
             self.redLamp.turnOn()
