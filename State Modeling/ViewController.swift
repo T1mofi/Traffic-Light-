@@ -84,7 +84,6 @@ class ViewController: UIViewController {
             turnLamp(.green)
             Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.greenTimerElapsed()})
         case .flashingRed:
-            resetViewColors()
             flashRedLight()
         }
     }
