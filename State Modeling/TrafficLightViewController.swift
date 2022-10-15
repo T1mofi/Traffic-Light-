@@ -33,6 +33,8 @@ class TrafficLightViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         trafficLightView.layer.cornerRadius = trafficLightView.frame.width / 4
+        trafficLightView.layer.borderWidth = 2.0
+        trafficLightView.layer.borderColor = UIColor.systemGray.cgColor
     }
 
     func resetViewColors() {
