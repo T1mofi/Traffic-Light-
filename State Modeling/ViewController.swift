@@ -7,53 +7,17 @@
 
 import UIKit
 
-
-
 class ViewController: UIViewController {
     struct Constants {
-        static let activeColorAlpha: CGFloat = 1.0
-        static let inactiveColorAlpha: CGFloat = 0.2
+        static let redLightTimeout: TimeInterval = 2
+        static let yellowLightTimeout: TimeInterval = 2
+        static let greenLightTimeout: TimeInterval = 3
+        static let redLightFlashTimeout: TimeInterval = 1
     }
 
-    enum TrafficLightLamp: CaseIterable {
-        case red
-        case yellow
-        case green
-
-        private var color: UIColor {
-            switch self {
-            case .red:
-                return .red
-            case .yellow:
-                return .yellow
-            case .green:
-                return .green
-            }
-        }
-
-        var activeColor: UIColor {
-            return self.color.withAlphaComponent(Constants.activeColorAlpha)
-        }
-
-        var inactiveColor: UIColor {
-            return self.color.withAlphaComponent(Constants.inactiveColorAlpha)
-        }
-
-        var timeout: TimeInterval {
-            switch self {
-            case .red:
-                return 2
-            case .yellow:
-                return 2
-            case .green:
-                return 3
-            }
-        }
-    }
-
-    @IBOutlet private weak var redView: UIView!
-    @IBOutlet private weak var yellowView: UIView!
-    @IBOutlet private weak var greenView: UIView!
+    @IBOutlet private weak var redLamp: TrafficLightLampView! { didSet { redLamp.type = .red }}
+    @IBOutlet private weak var yellowLamp: TrafficLightLampView! { didSet { yellowLamp.type = .yellow }}
+    @IBOutlet private weak var greenLamp: TrafficLightLampView! { didSet { greenLamp.type = .green }}
 
     private var stateMachine: TrafficLightStateMachine!
 
@@ -65,24 +29,23 @@ class ViewController: UIViewController {
     }
 
     func resetViewColors() {
-        for lamp in TrafficLightLamp.allCases {
-            let lampView = viewForLamp(lamp)
-            lampView.backgroundColor = lamp.inactiveColor
-        }
+        redLamp.turnOff()
+        yellowLamp.turnOff()
+        greenLamp.turnOff()
     }
 
     func handleStateChange(newState: TrafficLightStateMachine.TrafficLightState) {
         resetViewColors()
         switch newState {
         case .red:
-            turnOnLamp(.red)
-            Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.redTimerElapsed()})
+            redLamp.turnOn()
+            Timer.scheduledTimer(withTimeInterval: Constants.redLightTimeout, repeats: false, block: { _ in self.stateMachine.redTimerElapsed()})
         case .yellow:
-            turnOnLamp(.yellow)
-            Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.yellowTimerElapsed()})
+            yellowLamp.turnOn()
+            Timer.scheduledTimer(withTimeInterval: Constants.yellowLightTimeout, repeats: false, block: { _ in self.stateMachine.yellowTimerElapsed()})
         case .green:
-            turnOnLamp(.green)
-            Timer.scheduledTimer(withTimeInterval: TrafficLightLamp.red.timeout, repeats: false, block: { _ in self.stateMachine.greenTimerElapsed()})
+            greenLamp.turnOn()
+            Timer.scheduledTimer(withTimeInterval: Constants.greenLightTimeout, repeats: false, block: { _ in self.stateMachine.greenTimerElapsed()})
         case .flashingRed:
             flashRedLight()
         }
@@ -91,33 +54,12 @@ class ViewController: UIViewController {
 
 private extension ViewController {
     func flashRedLight() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            self.turnOnLamp(.red)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.turnOffLamp(.red)
+        Timer.scheduledTimer(withTimeInterval: Constants.redLightFlashTimeout, repeats: true, block: { _ in
+            self.redLamp.turnOn()
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.redLightFlashTimeout / 2) {
+                self.redLamp.turnOff()
             }
         })
-    }
-
-    func turnOnLamp(_ lamp: TrafficLightLamp) {
-        let lampView = viewForLamp(lamp)
-        lampView.backgroundColor = lamp.activeColor
-    }
-
-    func turnOffLamp(_ lamp: TrafficLightLamp) {
-        let lampView = viewForLamp(lamp)
-        lampView.backgroundColor = lamp.inactiveColor
-    }
-
-    func viewForLamp(_ lamp: TrafficLightLamp) -> UIView {
-        switch lamp {
-        case .red:
-            return redView
-        case .yellow:
-            return yellowView
-        case .green:
-            return greenView
-        }
     }
 }
 

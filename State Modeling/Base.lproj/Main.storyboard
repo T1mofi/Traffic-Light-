@@ -19,21 +19,21 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bb4-Ty-mvf">
                                 <rect key="frame" x="83" y="202.5" width="248" height="491"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-PV-O4d" userLabel="Red">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tjc-PV-O4d" userLabel="Red" customClass="TrafficLightLampView" customModule="State_Modeling" customModuleProvider="target">
                                         <rect key="frame" x="49" y="0.0" width="150" height="150.5"/>
                                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Tjc-PV-O4d" secondAttribute="height" multiplier="1:1" id="bzK-bs-uyn"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBD-cC-ngM" userLabel="Yellow">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBD-cC-ngM" userLabel="Yellow" customClass="TrafficLightLampView" customModule="State_Modeling" customModuleProvider="target">
                                         <rect key="frame" x="49" y="170.5" width="150" height="150"/>
                                         <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="XBD-cC-ngM" secondAttribute="height" id="3Am-aG-f21"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFt-IA-awn" userLabel="Green">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFt-IA-awn" userLabel="Green" customClass="TrafficLightLampView" customModule="State_Modeling" customModuleProvider="target">
                                         <rect key="frame" x="49" y="340.5" width="150" height="150.5"/>
                                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -53,9 +53,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="greenView" destination="nFt-IA-awn" id="wwM-cG-Jhi"/>
-                        <outlet property="redView" destination="Tjc-PV-O4d" id="V68-w9-y1g"/>
-                        <outlet property="yellowView" destination="XBD-cC-ngM" id="8P6-Kt-aKG"/>
+                        <outlet property="greenLamp" destination="nFt-IA-awn" id="wwM-cG-Jhi"/>
+                        <outlet property="redLamp" destination="Tjc-PV-O4d" id="V68-w9-y1g"/>
+                        <outlet property="yellowLamp" destination="XBD-cC-ngM" id="8P6-Kt-aKG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
