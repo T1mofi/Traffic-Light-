@@ -73,6 +73,7 @@ class TrafficLightLampView: UIView {
         self.layer.borderColor = UIColor.systemGray.cgColor
     }
 
+    // TODO: - Animate switching
     func turnOn() {
         colorView.backgroundColor = type.activeColor
     }
